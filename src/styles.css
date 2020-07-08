@@ -1,0 +1,85 @@
+#main-wrapper {
+    width: 50%;
+    margin-left: 25%;
+}
+
+#search {
+    width: 100%;
+    height: 100px;
+}
+
+.form-inline {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.form-inline label {
+    margin: 5px 10px 5px 0;
+}
+
+.form-inline input {
+    vertical-align: middle;
+    margin: 5px 10px 5px 0;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.form-inline button {
+    padding: 10px 20px;
+    background-color: dodgerblue;
+    border: 1px solid #ddd;
+    color: white;
+}
+
+.form-inline button:hover {
+    background-color: royalblue;
+}
+
+#result {
+    width: 100%;
+    height: auto;
+}
+
+.issue {
+    margin-bottom: 5px;
+    border: 1px solid black;
+    width: 100%;
+    height: 50px;
+}
+
+.issue-status {
+    width: 10%;
+    float: left;
+}
+
+.issue-status-svg {
+    width: 25%;
+    margin: 2px auto;
+}
+.issue-description {
+    width: 70%;
+    float: left;
+}
+
+.issue-title {
+    display: block;
+    width: 100%;
+}
+
+.issue-subtitle {
+    display: block;
+    color: grey;
+    width: 100%;
+}
+
+
+.issue-info {
+    float: left;
+    width: 20%;
+}
+
+.issue-comment-svg {
+    float: left;
+}
