@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Github Issue</title>
+</head>
+<body>
+    <div id="main-wrapper">
+        <div id="search">
+            <form class="form-inline" action="">
+                <label for="owner">https://github.com/</label>
+                <input type="text" id="owner" placeholder="Owner" name="owner">
+                <label for="repo">/</label>
+                <input type="text" id="repo" placeholder="Repo" name="repo">
+                <button type="submit">Search!</button>
+            </form>
+        </div>
+        <div id="result">
+        </div>
+    </div>
+
+    <template id="js-issue">
+        <div class="issue">
+            <div class="issue-status">
+                <div class="issue-status-svg">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16"
+                         height="16" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="issue-description">
+                <span class="issue-title">Title</span>
+                <span class="issue-subtitle">Subtitle</span>
+            </div>
+            <div class="issue-info">
+                <div class="issue-comment">
+                    <div class="issue-comment-svg">
+                        <svg viewBox="0 0 16 16" version="1.1" width="16"
+                             height="16" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                  d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z"></path>
+                        </svg>
+                    </div>
+                    <div class="issue-comment-number">
+                        <span>2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="../http/client.class.js"></script>
+    <script src="../http/modules/github.class.js"></script>
+</body>
+</html>
