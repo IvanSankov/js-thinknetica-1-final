@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Github Issue</title>
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
     <div id="main-wrapper">
@@ -20,7 +21,8 @@
     </div>
 
     <template id="js-issue">
-        <div class="issue">
+        <a href="" target="_blank">
+            <div class="issue">
             <div class="issue-status">
                 <div class="issue-status-svg">
                     <svg viewBox="0 0 16 16" version="1.1" width="16"
@@ -31,8 +33,8 @@
                 </div>
             </div>
             <div class="issue-description">
-                <span class="issue-title">Title</span>
-                <span class="issue-subtitle">Subtitle</span>
+                <span class="issue-title"></span>
+                <span class="issue-subtitle"></span>
             </div>
             <div class="issue-info">
                 <div class="issue-comment">
@@ -44,15 +46,18 @@
                         </svg>
                     </div>
                     <div class="issue-comment-number">
-                        <span>2</span>
+                        <span></span>
                     </div>
                 </div>
             </div>
         </div>
+        </a>
     </template>
 
     <script src="../http/client.class.js"></script>
     <script src="../http/modules/github.class.js"></script>
+    <script src="../handlers/badIssueRequest.js"></script>
+    <script src="../handlers/successfulIssueRequest.js"></script>
     <script src="../handlers/search.js"></script>
     <script src="../index.js"></script>
 </body>
