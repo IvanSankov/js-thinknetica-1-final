@@ -7,7 +7,7 @@
 <body>
     <div id="main-wrapper">
         <div id="search">
-            <form class="form-inline" action="">
+            <form id="js-search-issue" class="form-inline">
                 <label for="owner">https://github.com/</label>
                 <input type="text" id="owner" placeholder="Owner" name="owner">
                 <label for="repo">/</label>
@@ -53,5 +53,7 @@
 
     <script src="../http/client.class.js"></script>
     <script src="../http/modules/github.class.js"></script>
+    <script src="../handlers/search.js"></script>
+    <script src="../index.js"></script>
 </body>
 </html>
