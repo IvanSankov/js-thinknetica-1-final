@@ -9,11 +9,13 @@ const templateIssueBlock = document.getElementById('js-issue');
 const github = new Github();
 const badIssueRequestHandler = badIssueRequest(resultBlock);
 const successfulIssueRequestHandler = successfulIssueRequest(resultBlock, templateIssueBlock);
-const searchHandler = search(
-    github.listRepositoryIssues.bind(github),
-    successfulIssueRequestHandler,
-    badIssueRequestHandler,
-);
+const beforeSendIssueRequestHandler = beforeSendIssueRequest(resultBlock);
+const searchHandler = search({
+    searchMethod: github.listRepositoryIssues.bind(github),
+    beforeSend: beforeSendIssueRequestHandler,
+    onSuccess: successfulIssueRequestHandler,
+    onError: badIssueRequestHandler
+});
 
 /* -- Навешиваем события -- */
 searchForm.addEventListener('submit', searchHandler);

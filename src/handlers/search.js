@@ -4,13 +4,16 @@
  * Функция, возвращающая обработчик для формы поиска
  *
  * @param {function} searchMethod
+ * @param {function} beforeSend
  * @param {function} onSuccess
  * @param {function} onError
  * @returns {function}
  */
-function search(searchMethod, onSuccess, onError) {
+function search({searchMethod, beforeSend, onSuccess, onError}) {
     return function (event) {
         event.preventDefault();
+
+        beforeSend();
 
         const elements = event.target.elements;
 
