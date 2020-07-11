@@ -1,5 +1,15 @@
 'use strict';
 
+/* -- assets -- */
+import './styles/styles.css'
+
+/* -- modules -- */
+import {Github} from "./http/modules/github.class";
+import {badIssueRequest} from "./handlers/badIssueRequest";
+import {successfulIssueRequest} from "./handlers/successfulIssueRequest";
+import {beforeSendIssueRequest} from "./handlers/beforeSendIssueRequest";
+import {search} from "./handlers/search";
+
 /* -- Инициализируем DOM Elements -- */
 const searchForm = document.getElementById('js-search-issue');
 const resultBlock = document.getElementById('result');

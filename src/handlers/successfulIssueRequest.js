@@ -7,7 +7,7 @@
  * @param {HTMLTemplateElement} childBlockTemplate
  * @returns {function(...[*]=)}
  */
-function successfulIssueRequest(notificationBlock, childBlockTemplate) {
+export function successfulIssueRequest(notificationBlock, childBlockTemplate) {
 
     /**
      * Обрабатывает issue и добавляет его на страницу

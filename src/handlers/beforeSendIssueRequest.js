@@ -6,7 +6,7 @@
  * @param {HTMLElement} notificationBlock
  * @return {function}
  */
-function beforeSendIssueRequest(notificationBlock) {
+export function beforeSendIssueRequest(notificationBlock) {
     return function () {
         notificationBlock.innerHTML = '';
     }

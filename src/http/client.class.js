@@ -3,7 +3,7 @@
 /**
  * Класс, создающий клиент для http запроса
  */
-class Client {
+export class Client {
     constructor() {
         this._xhr = new XMLHttpRequest();
     }

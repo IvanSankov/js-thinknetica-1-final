@@ -1,11 +1,14 @@
 'use strict';
 
+import {Client} from "../client.class";
+
+
 const BASE_URI = 'https://api.github.com/';
 
 /**
  * Класс, реализующий все методы Github API (на самом деле нет, только один :-D )
  */
-class Github {
+export class Github {
     constructor() {
         this._requests = {}
     }

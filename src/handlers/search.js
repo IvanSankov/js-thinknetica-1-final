@@ -9,7 +9,7 @@
  * @param {function} onError
  * @returns {function}
  */
-function search({searchMethod, beforeSend, onSuccess, onError}) {
+export function search({searchMethod, beforeSend, onSuccess, onError}) {
     return function (event) {
         event.preventDefault();
 
