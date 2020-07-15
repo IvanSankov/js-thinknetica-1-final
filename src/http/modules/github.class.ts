@@ -3,12 +3,14 @@
 import {Client} from "../client.class";
 
 
-const BASE_URI = 'https://api.github.com/';
+const BASE_URI: string = 'https://api.github.com/';
 
 /**
  * Класс, реализующий все методы Github API (на самом деле нет, только один :-D )
  */
 export class Github {
+    private readonly _requests: object
+
     constructor() {
         this._requests = {}
     }
@@ -20,12 +22,12 @@ export class Github {
      *
      * @param {string} owner
      * @param {string} repo
-     * @returns {Promise<unknown>}
+     * @returns {Promise<object>}
      */
-    async listRepositoryIssues(owner, repo) {
+    async listRepositoryIssues(owner: string, repo: string): Promise<object> {
         this._abortRequest('listRepositoryIssues');
 
-        const client = new Client();
+        const client: Client = new Client();
         this._addRequest('listRepositoryIssues', client);
 
         return await client.get(`${BASE_URI}repos/${owner}/${repo}/issues`);
@@ -38,8 +40,8 @@ export class Github {
      * @returns {boolean}
      * @private
      */
-    _abortRequest(key) {
-        const request = this._requests[key];
+    _abortRequest(key: string): boolean {
+        const request: Client = this._requests[key];
         if (!request) {
             return false;
         }
@@ -55,7 +57,7 @@ export class Github {
      * @param {Client} client
      * @private
      */
-    _addRequest(key, client) {
+    _addRequest(key: string, client: Client): void {
         this._requests[key] = client;
     }
 }

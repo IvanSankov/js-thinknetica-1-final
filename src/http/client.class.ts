@@ -4,6 +4,8 @@
  * Класс, создающий клиент для http запроса
  */
 export class Client {
+    private readonly _xhr: XMLHttpRequest;
+
     constructor() {
         this._xhr = new XMLHttpRequest();
     }
@@ -14,7 +16,7 @@ export class Client {
      * @param {function} fn
      * @returns {this}
      */
-    onProgress(fn) {
+    onProgress(fn: (event: ProgressEvent) => void): Client {
         this._xhr.addEventListener("progress", fn, false);
 
         return this;
@@ -24,9 +26,9 @@ export class Client {
      * Метод, реализующий "GET" запрос
      *
      * @param {string} url
-     * @returns {Promise<unknown>}
+     * @returns {Promise<object>}
      */
-    get(url) {
+    get(url: string): Promise<object> {
         this._xhr.open('GET', url);
 
         return this._request();
@@ -35,7 +37,7 @@ export class Client {
     /**
      * Метод обрывающий запрос
      */
-    abort() {
+    abort(): void {
         this._xhr.abort();
     }
 
@@ -44,10 +46,10 @@ export class Client {
      *
      * * Устанавливает тип возвращаемых значений как JSON
      *
-     * @returns {Promise<unknown>}
+     * @returns {Promise<object>}
      * @private
      */
-    _request() {
+    _request(): Promise<object> {
         this._xhr.responseType = 'json';
 
         return new Promise((resolve, reject) => {
