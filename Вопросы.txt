@@ -5,3 +5,4 @@
         const templateIssueBlock: HTMLTemplateElement = <HTMLTemplateElement>document.getElementById('js-issue');
     тогда все завелось. Но на 100% не понимаю почему это так. А хочу понять :-)
 2. А еще меня немного смущает моя типизация возращаемого значения в Github.listRepositoryIssues
+3. А когда ts преобразуется в js, к js потом babel применяется?
