@@ -1,5 +1,7 @@
 'use strict';
 
+import './client.types';
+
 /**
  * Класс, создающий клиент для http запроса
  */
@@ -12,9 +14,6 @@ export class Client {
 
     /**
      * Метод, добавляющий обработчик на состояние передачи от сервера к клиенту (загрузка)
-     *
-     * @param {function} fn
-     * @returns {this}
      */
     onProgress(fn: (event: ProgressEvent) => void): Client {
         this._xhr.addEventListener("progress", fn, false);
@@ -24,11 +23,8 @@ export class Client {
 
     /**
      * Метод, реализующий "GET" запрос
-     *
-     * @param {string} url
-     * @returns {Promise<object>}
      */
-    get(url: string): Promise<object> {
+    get(url: string): Promise<any> {
         this._xhr.open('GET', url);
 
         return this._request();
@@ -45,11 +41,8 @@ export class Client {
      * Метод, который делает запрос
      *
      * * Устанавливает тип возвращаемых значений как JSON
-     *
-     * @returns {Promise<object>}
-     * @private
      */
-    _request(): Promise<object> {
+    private _request(): Promise<any> {
         this._xhr.responseType = 'json';
 
         return new Promise((resolve, reject) => {

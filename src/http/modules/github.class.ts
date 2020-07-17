@@ -1,6 +1,7 @@
 'use strict';
 
 import {Client} from "../client.class";
+import './github.types';
 
 
 const BASE_URI: string = 'https://api.github.com/';
@@ -19,12 +20,8 @@ export class Github {
      * Метод, реализующий запрос https://developer.github.com/v3/issues/#list-repository-issues
      *
      * * Обрывает предыдущий запрос
-     *
-     * @param {string} owner
-     * @param {string} repo
-     * @returns {Promise<object>}
      */
-    async listRepositoryIssues(owner: string, repo: string): Promise<object> {
+    async listRepositoryIssues(owner: string, repo: string): Promise<Array<IssueInterface>|HttpErrorInterface> {
         this._abortRequest('listRepositoryIssues');
 
         const client: Client = new Client();
@@ -35,12 +32,8 @@ export class Github {
 
     /**
      * Метод, обрывающий запрос клиента
-     *
-     * @param {string} key
-     * @returns {boolean}
-     * @private
      */
-    _abortRequest(key: string): boolean {
+    private _abortRequest(key: string): boolean {
         const request: Client = this._requests[key];
         if (!request) {
             return false;
@@ -52,12 +45,8 @@ export class Github {
 
     /**
      * Метод, сохраняющий клиент для определенного запроса
-     *
-     * @param {string} key
-     * @param {Client} client
-     * @private
      */
-    _addRequest(key: string, client: Client): void {
+    private _addRequest(key: string, client: Client): void {
         this._requests[key] = client;
     }
 }

@@ -1,6 +1,6 @@
-1. Во время сборки была проблема с Babel для функций типа async/await. Сама проблема:
-    Uncaught ReferenceError: regeneratorRuntime is not defined. Все, что я нагуглил это добавить новый конфиг для Babel
-    https://babeljs.io/docs/en/babel-plugin-transform-runtime, который преобразует async/await. Это "правильно"? Или
-    Есть какое-то другое "стандартное" решение?
-2. Сейчас сделал пул реквест, пошел смотреть, что там и гитхаб подсвечивает, мол "No newline at the end of file", есть
-    ли сакральный смысл или необходимость в этом? и если да, то почему? (новые линии я пока не добавлял)
+1. В общем, возникли проблемы с переменной templateIssueBlock из main.ts, так как document.getElementById
+    не возвращал HTMLTemplateElement, а возращал HTMLElement, то, как заставить его возращать нужное мне значение
+    на просторах интернета я не нашел, но, покапался в каком-то файле node_modules/typescript/lib/lib.dom.d.ts. Вроде
+    понял, что это дженерик, наверное и поэтому сделал:
+        const templateIssueBlock: HTMLTemplateElement = <HTMLTemplateElement>document.getElementById('js-issue');
+    тогда все завелось. Но на 100% не понимаю почему это так. А хочу понять :-)
