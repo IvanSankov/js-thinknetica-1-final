@@ -1,40 +1,38 @@
-'use strict';
-
-import './client.types';
+import './client.types.ts';
 
 /**
  * Класс, создающий клиент для http запроса
  */
-export class Client {
-    private readonly _xhr: XMLHttpRequest;
+export default class Client {
+    private readonly xmlHttpRequest: XMLHttpRequest;
 
     constructor() {
-        this._xhr = new XMLHttpRequest();
+      this.xmlHttpRequest = new XMLHttpRequest();
     }
 
     /**
      * Метод, добавляющий обработчик на состояние передачи от сервера к клиенту (загрузка)
      */
     onProgress(fn: (event: ProgressEvent) => void): Client {
-        this._xhr.addEventListener("progress", fn, false);
+      this.xmlHttpRequest.addEventListener('progress', fn, false);
 
-        return this;
+      return this;
     }
 
     /**
      * Метод, реализующий "GET" запрос
      */
     get(url: string): Promise<any> {
-        this._xhr.open('GET', url);
+      this.xmlHttpRequest.open('GET', url);
 
-        return this._request();
+      return this.request();
     }
 
     /**
      * Метод обрывающий запрос
      */
     abort(): void {
-        this._xhr.abort();
+      this.xmlHttpRequest.abort();
     }
 
     /**
@@ -42,24 +40,24 @@ export class Client {
      *
      * * Устанавливает тип возвращаемых значений как JSON
      */
-    private _request(): Promise<any> {
-        this._xhr.responseType = 'json';
+    private request(): Promise<any> {
+      this.xmlHttpRequest.responseType = 'json';
 
-        return new Promise((resolve, reject) => {
-            this._xhr.onload = () => {
-                if (this._xhr.status !== 200) {
-                    reject({
-                        status: this._xhr.status,
-                        response: this._xhr.response
-                    });
+      return new Promise((resolve, reject) => {
+        this.xmlHttpRequest.onload = () => {
+          if (this.xmlHttpRequest.status !== 200) {
+            reject({
+              status: this.xmlHttpRequest.status,
+              response: this.xmlHttpRequest.response,
+            });
 
-                    return;
-                }
+            return;
+          }
 
-                resolve(this._xhr.response);
-            }
+          resolve(this.xmlHttpRequest.response);
+        };
 
-            this._xhr.send();
-        });
+        this.xmlHttpRequest.send();
+      });
     }
 }

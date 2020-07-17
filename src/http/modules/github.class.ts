@@ -1,19 +1,16 @@
-'use strict';
-
-import {Client} from "../client.class";
-import './github.types';
-
+import Client from '../client.class.ts';
+import './github.types.ts';
 
 const BASE_URI = 'https://api.github.com/';
 
 /**
  * Класс, реализующий все методы Github API (на самом деле нет, только один :-D )
  */
-export class Github {
-    private readonly _requests: Record<string, Client>
+export default class Github {
+    private readonly requests: Record<string, Client>
 
     constructor() {
-        this._requests = {}
+      this.requests = {};
     }
 
     /**
@@ -21,32 +18,36 @@ export class Github {
      *
      * * Обрывает предыдущий запрос
      */
-    async listRepositoryIssues(owner: string, repo: string): Promise<Array<IssueInterface>|HttpErrorInterface> {
-        this._abortRequest('listRepositoryIssues');
+    async listRepositoryIssues(
+      owner: string,
+      repo: string,
+    ): Promise<Array<IssueInterface>|HttpErrorInterface> {
+      this.abortRequest('listRepositoryIssues');
 
-        const client: Client = new Client();
-        this._addRequest('listRepositoryIssues', client);
+      const client: Client = new Client();
+      this.addRequest('listRepositoryIssues', client);
 
-        return await client.get(`${BASE_URI}repos/${owner}/${repo}/issues`);
+      const response = client.get(`${BASE_URI}repos/${owner}/${repo}/issues`);
+      return response;
     }
 
     /**
      * Метод, обрывающий запрос клиента
      */
-    private _abortRequest(key: string): boolean {
-        const request: Client = this._requests[key];
-        if (!request) {
-            return false;
-        }
+    private abortRequest(key: string): boolean {
+      const request: Client = this.requests[key];
+      if (!request) {
+        return false;
+      }
 
-        request.abort();
-        return true
+      request.abort();
+      return true;
     }
 
     /**
      * Метод, сохраняющий клиент для определенного запроса
      */
-    private _addRequest(key: string, client: Client): void {
-        this._requests[key] = client;
+    private addRequest(key: string, client: Client): void {
+      this.requests[key] = client;
     }
 }

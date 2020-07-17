@@ -12,3 +12,5 @@
         2:8   error  Unable to resolve path to module './main.types'                 import/no-unresolved
         6:24  error  Unable to resolve path to module './http/modules/github.class'  import/no-unresolved
     и такое чувство, что в другие файлы кроме main.ts он не смотрит... =(
+5. Была ошибка с camelCase, за неимением вариантов, я решил ее с помощью правил в .eslintrc.json, добавив ее в allow
+    для свойства camelcase. Не знаю, правильно ли или нет.

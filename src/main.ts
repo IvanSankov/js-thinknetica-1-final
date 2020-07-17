@@ -1,11 +1,9 @@
-'use strict';
-
 /* -- assets -- */
-import './main.types';
-import './styles/styles.css'
+import './main.types.ts';
+import './styles/styles.css';
 
 /* -- modules -- */
-import {Github} from "./http/modules/github.class";
+import Github from './http/modules/github.class.ts';
 
 /* -- Инициализируем DOM Elements -- */
 const searchForm: HTMLElement = document.getElementById('js-search-issue');
@@ -15,36 +13,39 @@ const templateIssueBlock: HTMLTemplateElement = <HTMLTemplateElement>document.ge
 /* -- Инициализируем сервисы, обработчики -- */
 const github: Github = new Github();
 
-/* -- Навешиваем события -- */
-searchForm.addEventListener('submit', search);
-
-
 /* -- Инициализируем функции -- */
 
 /**
- * * Функция, возвращающая обработчик для формы поиска
+ * Обрабатывает issue и добавляет его на страницу
  *
- * @param {Event} event
+ * @param issue
  */
-function search(event: SearchSubmitEventInterface): void {
-    event.preventDefault();
+function issueHandler(issue: IssueInterface): void {
+  const cloneTemplate: DocumentFragment = <DocumentFragment>templateIssueBlock
+    .content.cloneNode(true);
 
-    resultBlock.innerHTML = '';
+  const commentWrapper: HTMLSpanElement = <HTMLSpanElement>cloneTemplate.querySelector('.issue-comment-number span');
+  commentWrapper.innerText = issue.comments.toString();
 
-    const elements: SearchFormElementsInterface = event.target.elements;
+  cloneTemplate.querySelector('a').href = issue.html_url;
 
-    github.listRepositoryIssues(elements.owner.value, elements.repo.value)
-        .then(onSuccess)
-        .catch(onError);
+  cloneTemplate
+    .querySelector('.issue-title')
+    .innerHTML = issue.labels.reduce((acc, curr) => `${acc} <span style="color: white; background-color: #${curr.color}">${curr.name}</span>`, issue.title);
+
+  const issueSubtitleWrapper: HTMLSpanElement = <HTMLSpanElement>cloneTemplate.querySelector('.issue-subtitle');
+  issueSubtitleWrapper.innerText = `#${issue.number} opened by ${issue.user.login}`;
+
+  resultBlock.append(cloneTemplate);
 }
 
 /**
  * Обработчик ошибки при неудачном запросе Github issue
  */
 function onError(err: HttpErrorInterface): void {
-    const p = document.createElement('p');
-    p.innerText = `#${err.status} ${err.response.message}`;
-    resultBlock.append(p);
+  const p = document.createElement('p');
+  p.innerText = `#${err.status} ${err.response.message}`;
+  resultBlock.append(p);
 }
 
 /**
@@ -53,38 +54,33 @@ function onError(err: HttpErrorInterface): void {
  * @param {Array} data
  */
 function onSuccess(data: Array<IssueInterface>): void {
-    if (data.length === 0) {
-        const p = document.createElement('p');
-        p.innerText = `Issue не найдены`;
-        resultBlock.append(p);
+  if (data.length === 0) {
+    const p = document.createElement('p');
+    p.innerText = 'Issue не найдены';
+    resultBlock.append(p);
 
-        return;
-    }
+    return;
+  }
 
-    data.forEach(issueHandler);
+  data.forEach(issueHandler);
 }
 
 /**
- * Обрабатывает issue и добавляет его на страницу
+ * * Функция, возвращающая обработчик для формы поиска
  *
- * @param issue
+ * @param {Event} event
  */
-function issueHandler(issue: IssueInterface): void {
-    const cloneTemplate: DocumentFragment = <DocumentFragment>templateIssueBlock.content.cloneNode(true);
+function search(event: SearchSubmitEventInterface): void {
+  event.preventDefault();
 
-    const commentWrapper: HTMLSpanElement = <HTMLSpanElement>cloneTemplate.querySelector('.issue-comment-number span');
-    commentWrapper.innerText = issue.comments.toString();
+  resultBlock.innerHTML = '';
 
-    cloneTemplate.querySelector('a').href = issue.html_url;
+  const { elements } = event.target;
 
-    cloneTemplate
-        .querySelector('.issue-title')
-        .innerHTML = issue.labels.reduce((acc, curr) => {
-        return  acc + ` <span style="color: white; background-color: #${curr.color}">${curr.name}</span>`
-    }, issue.title);
-
-    const issueSubtitleWrapper: HTMLSpanElement = <HTMLSpanElement>cloneTemplate.querySelector('.issue-subtitle');
-    issueSubtitleWrapper.innerText = `#${issue.number} opened by ${issue.user.login}`;
-
-    resultBlock.append(cloneTemplate);
+  github.listRepositoryIssues(elements.owner.value, elements.repo.value)
+    .then(onSuccess)
+    .catch(onError);
 }
+
+/* -- Навешиваем события -- */
+searchForm.addEventListener('submit', search);
