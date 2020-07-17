@@ -42,7 +42,7 @@ function search(event: SearchSubmitEventInterface): void {
  * Обработчик ошибки при неудачном запросе Github issue
  */
 function onError(err: HttpErrorInterface): void {
-    let p = document.createElement('p');
+    const p = document.createElement('p');
     p.innerText = `#${err.status} ${err.response.message}`;
     resultBlock.append(p);
 }
@@ -54,7 +54,7 @@ function onError(err: HttpErrorInterface): void {
  */
 function onSuccess(data: Array<IssueInterface>): void {
     if (data.length === 0) {
-        let p = document.createElement('p');
+        const p = document.createElement('p');
         p.innerText = `Issue не найдены`;
         resultBlock.append(p);
 
@@ -70,7 +70,7 @@ function onSuccess(data: Array<IssueInterface>): void {
  * @param issue
  */
 function issueHandler(issue: IssueInterface): void {
-    let cloneTemplate: DocumentFragment = <DocumentFragment>templateIssueBlock.content.cloneNode(true);
+    const cloneTemplate: DocumentFragment = <DocumentFragment>templateIssueBlock.content.cloneNode(true);
 
     const commentWrapper: HTMLSpanElement = <HTMLSpanElement>cloneTemplate.querySelector('.issue-comment-number span');
     commentWrapper.innerText = issue.comments.toString();

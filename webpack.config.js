@@ -24,11 +24,27 @@ module.exports = {
     module: {
         rules: [
             {
+                enforce: 'pre',
+                test: /\.(js|tsx?)$/,
+                exclude: /node_modules/,
+                loader: 'eslint-loader',
+                options: {
+                    fix: true,
+                    failOnError: true,
+                    /* убрал, потому что он ругается на any, которые в src/http/client.class.ts, а как там поправить
+                     * чтобы any не было, я вообще не в курсях.
+                     */
+
+                    // failOnWarning: true,
+                },
+            },
+            {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: ['babel-loader', 'ts-loader'], /* babel будет применяться после ts-loader? */
                 exclude: /node_modules/,
             },
             {
+                /* а этот конфиг нужен? типа он для js будет применяться, а верхний для ts */
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"

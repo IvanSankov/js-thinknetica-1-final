@@ -4,13 +4,13 @@ import {Client} from "../client.class";
 import './github.types';
 
 
-const BASE_URI: string = 'https://api.github.com/';
+const BASE_URI = 'https://api.github.com/';
 
 /**
  * Класс, реализующий все методы Github API (на самом деле нет, только один :-D )
  */
 export class Github {
-    private readonly _requests: object
+    private readonly _requests: Record<string, Client>
 
     constructor() {
         this._requests = {}
